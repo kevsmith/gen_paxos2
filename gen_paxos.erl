@@ -1,19 +1,19 @@
 %% -*- coding: utf-8 -*-
-%%     gen_paxos
+%%     this file is part of gen_paxos.
 %% 　  Copyright (C) 2009   kuenishi+paxos@gmail.com
 
-%%     This program is free software: you can redistribute it and/or modify
-%%     it under the terms of the GNU General Public License as published by
+%%     gen_paxos is free software: you can redistribute it and/or modify
+%%     it under the terms of the GNU Lesser General Public License as published by
 %%     the Free Software Foundation, either version 3 of the License, or
 %%     (at your option) any later version.
 
-%%     This program is distributed in the hope that it will be useful,
+%%     gen_paxos is distributed in the hope that it will be useful,
 %%     but WITHOUT ANY WARRANTY; without even the implied warranty of
 %%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-%%     GNU General Public License for more details.
+%%     GNU Lesser General Public License for more details.
 
-%%     You should have received a copy of the GNU General Public License
-%%     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%%     You should have received a copy of the GNU Lesser General Public License
+%%     along with gen_paxos.  If not, see <http://www.gnu.org/licenses/>.
 
 %% @doc GENeric PAXOS consensus protocol executer.
 %%      this can't be used as a behaviour, but a API for making consensus.
