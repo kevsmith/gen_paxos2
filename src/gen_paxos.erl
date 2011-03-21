@@ -36,11 +36,11 @@ version_info()-> {?MODULE, 1}.  %% math:exp(1)=2.718281828459045
 %% @spec  start_link( node_identifier(), initN, other_players() ) -> Pid
 start_link( InitN, Others )->
     io:format( "starting ~p agent...", [?MODULE] ),
-    Pongs=lists:filter(fun(X)-> 
-			       case X of pong -> true; _-> false end 
+    Pongs=lists:filter(fun(X)->
+			       case X of pong -> true; _-> false end
 		       end ,
-		       lists:map( 
-			 fun(Other)-> net_adm:ping(Other) end, 
+		       lists:map(
+			 fun(Other)-> net_adm:ping(Other) end,
 			 Others )),
     io:format( "~p nodes ponged.~n", [length( Pongs )] ),
     start_link( InitN, Others, ?DEFAULT_COORDINATOR_NUM ).
@@ -56,21 +56,21 @@ start_link( InitN, Others, NumCoordinators )->
 get_process_name_from_int( N )-> % 1...?DEFAULT_COORDINATOR_NUM
     list_to_atom( "coordinator" ++ integer_to_list(N) ).
 
-get_process_name_from_key( Key )-> 
+get_process_name_from_key( Key )->
     get_process_name_from_int( erlang:phash( Key, ?DEFAULT_COORDINATOR_NUM ) ). % 1...?DEFAULT_COORDINATOR_NUM
 
 stop()->
     stop( ?DEFAULT_COORDINATOR_NUM ).
 
 stop(0)-> ok;
-stop(N)-> 
+stop(N)->
     Coordinator = get_process_name_from_int( N ),
     Coordinator ! {self(), stop, normal},
     stop(N-1).
-    
+
 %% if you consult a value , set Value as void.
 ask(Key)->    ask(Key,void).
-    
+
 ask(Key, Value)->
     Coordinator = get_process_name_from_key( Key ),
     Coordinator ! {self(), ask, { Key, Value }},
@@ -84,7 +84,7 @@ ask(Key, Value)->
 clear()->    clear( ?DEFAULT_COORDINATOR_NUM ).
 
 clear(0)-> ok;
-clear(N)-> 
+clear(N)->
     Coordinator = get_process_name_from_int( N ),
     Coordinator ! {self(), clear, normal},
     clear(N-1).
@@ -99,7 +99,7 @@ coordinator( InitN, Others )->
 		    io:format("starting active paxos: ~p~n", [{From, ask, {Key,Value}}]),
 		    lists:map( fun(Node)->
 				       io:format("starting message to: ~p ! ~p~n",
-						 [{get_process_name_from_key(Key), Node}, 
+						 [{get_process_name_from_key(Key), Node},
 						  {self(), suggest, {Key, Value}}]),
 				       {get_process_name_from_key(Key), Node} ! {self(), suggest, {Key,Value} }
 			       end,
